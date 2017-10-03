@@ -3,8 +3,11 @@ module Api
 		module Merchants
 			class SearchController < ApplicationController
 				def show
-					merchant = Merchant.find_by(search_params)
-					redirect_to api_v1_merchant_path(merchant)
+					render json: Merchant.find_by(search_params)
+				end
+				
+				def index 
+					render json: Merchant.where(search_params)
 				end
 				
 				private

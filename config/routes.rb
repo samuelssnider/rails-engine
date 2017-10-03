@@ -9,10 +9,10 @@ Rails.application.routes.draw do
 			resources :items, only: [:index, :show]
 			resources :customers, only: [:index, :show]
 			namespace :merchants do
-				resources :search, only: [:show]
+				resources :search, only: [:show, :index]
 			end
 			namespace :customers do
-				resources :search, only: [:show]
+				resources :search, only: [:show, :index]
 			end
   	end
   end
