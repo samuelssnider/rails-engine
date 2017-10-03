@@ -9,7 +9,7 @@ module Api
 			def show
 				unless params[:id] == "find"
 					render json: Customer.find(params[:id])
-				else
+				el
 					redirect_to api_v1_customers_search_path(name: params["name"])
 				end
 			end
