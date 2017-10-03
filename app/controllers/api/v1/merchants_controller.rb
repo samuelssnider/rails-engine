@@ -10,7 +10,8 @@ module Api
 				unless params[:id] == "find"
 					render json: Merchant.find(params[:id])
 				else
-					redirect_to : 
+					redirect_to api_v1_merchants_search_path(name: params["name"])
+				end
 			end
 		
 		end

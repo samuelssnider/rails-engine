@@ -3,9 +3,9 @@ module Api
 		module Merchants
 			class SearchController < ApplicationController
 				def show
-					merchant = Merchant.find(params[:id])
+					merchant = Merchant.find_by(name: params["name"])
 					binding.pry
-					redirect_to merchant_path(merchant)
+					redirect_to api_v1_merchant_path(merchant)
 				end
 			end
 		end
