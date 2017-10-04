@@ -7,6 +7,10 @@ Rails.application.routes.draw do
           resources :items, only: [:index]
           get 'find',     to: 'merchants/search#show'
           get 'find_all', to: 'merchants/search#index'
+          get 'random', to: 'merchants/random#show'
+          get 'most_revenue', to: 'merchants/most_revenue#index'
+          get 'most_items', to: 'merchants/most_items#index'
+          get 'revenue', to: 'merchants/revenue_by_date#index'
         end
       end
 			resources :invoices, only: [:index, :show]
