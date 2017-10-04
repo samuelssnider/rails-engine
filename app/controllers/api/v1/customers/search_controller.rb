@@ -3,8 +3,17 @@ module Api
 		module Customers
 			class SearchController < ApplicationController
 				def show
-					customer = Customer.find_by(last_name: params["last_name"])
-					redirect_to api_v1_customer_path(customer)
+					render json: Customer.find_by(search_params)
+				end
+				
+				def index 
+					render json: Customer.where(search_params)
+				end
+				
+				private
+				
+				def search_params
+					params.permit(:first_name, :last_name, :created_at, :updated_at)
 				end
 			end
 		end

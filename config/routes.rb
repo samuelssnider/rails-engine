@@ -13,13 +13,30 @@ Rails.application.routes.draw do
           get 'revenue', to: 'merchants/revenue_by_date#index'
         end
       end
+      resources :transactions, only: [:index, :show] do
+        collection do
+          get 'find',     to: 'transactions/search#show'
+          get 'find_all', to: 'transactions/search#index'
+          get 'random', to: 'transactions/random#show'
+        end
+      end
+      resources :customers, only: [:index, :show] do
+        collection do
+          get 'find',     to: 'customers/search#show'
+          get 'find_all', to: 'customers/search#index'
+          get 'random', to: 'customers/random#show' 
+        end   
+      end
 			resources :invoices, only: [:index, :show]
 			resources :items, only: [:index, :show]
-			resources :customers, only: [:index, :show]
+			
 			namespace :merchants do
 				resources :search, only: [:show, :index]
 			end
 			namespace :customers do
+				resources :search, only: [:show, :index]
+			end
+      namespace :transactions do
 				resources :search, only: [:show, :index]
 			end
   	end

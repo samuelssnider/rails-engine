@@ -13,6 +13,7 @@ describe 'Merchants API' do
 		expect(merchants.count).to eq(10)
 		expect(response).to have_http_status(200)
 	end
+	
 	it "sends a single merchant" do
 		create_list(:merchant, 1)
 		
@@ -22,6 +23,17 @@ describe 'Merchants API' do
 		
 		expect(merchants).not_to be_empty
 		expect(Merchant.count).to eq(1)
+		expect(response).to have_http_status(200)
+	end
+	
+	it "sends a random merchant"  do
+		create_list(:merchant, 20)
+		
+		get "/api/v1/merchants/random"
+		
+		merchants = JSON.parse(response.body)
+		
+		expect(merchants).not_to be_empty
 		expect(response).to have_http_status(200)
 	end
 end
