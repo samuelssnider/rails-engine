@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Customers API' do
-	it "sends a list of merchants" do
+	it "sends a list of customers" do
 		create_list(:customer, 10)
 		
 		get '/api/v1/customers'
@@ -14,7 +14,7 @@ describe 'Customers API' do
 		expect(response).to have_http_status(200)
 	end
 	
-	it "sends a single merchant" do
+	it "sends a single customer" do
 		create_list(:customer, 1)
 		
 		get "/api/v1/customers/#{Customer.first.id}"
