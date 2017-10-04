@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         resources :invoice_items, only: [:index]
         collection do
           get 'most_revenue', to: 'items/most_revenue#index'
+          get 'most_items', to: 'items/most_items#index'
           get 'find',     to: 'items/search#show'
           get 'find_all', to: 'items/search#index'
           get 'random', to: 'items/random#show' 
