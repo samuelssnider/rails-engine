@@ -4,9 +4,7 @@ module Api
 			
 			
 			def show
-				
 					render json: Invoice.find(params)
-				end
 			end
 			
 			def index
