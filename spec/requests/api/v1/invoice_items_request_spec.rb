@@ -42,9 +42,9 @@ describe 'Invoice Items API' do
 		
 		get "/api/v1/invoice_items/random"
 		
-		customers = JSON.parse(response.body)
+		invoice_item = JSON.parse(response.body)
 		
-		expect(customers).not_to be_empty
+		expect(invoice_item).not_to be_empty
 		expect(response).to have_http_status(200)
 	end
 end

@@ -4,7 +4,7 @@ module Api
 			
 			
 			def show
-					render json: Invoice.find(params)
+					render json: Invoice.find(params[:id])
 			end
 			
 			def index

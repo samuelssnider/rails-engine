@@ -4,12 +4,13 @@ class Customer < ApplicationRecord
 	has_many :merchants, through: :invoices
 	has_many :transactions, through: :invoices
 	
-	def favorite_merchant
-		merchants.select("merchants.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
-		.joins(invoices: [:invoice_items, :transactions, :customers])
-		.merge(Transaction.unscoped.successful)
-		.group(:id).order('total_revenue DESC')
-		.limit(1)
-	end
-	
+	# def favorite_merchant
+	# 	merchants.select("merchants.*, count(transactions) as total_revenue")
+	# 	.joins(invoices: [:transactions, :customer])
+	# 	.where("customer_id = ? AND result = ?", self.id, "0")
+	# 	.group(:id)
+	# 	.order('count DESC')
+	# 	.limit(1)
+	# end
+	# 
 end

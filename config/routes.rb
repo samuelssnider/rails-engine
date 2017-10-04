@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       end
       
       resources :customers, only: [:index, :show] do
-        resources :favorite_merchant, only: [:index]
+        get 'favorite_merchant', to: 'customers/favorite_merchant#index'
         collection do
           get 'find',     to: 'customers/search#show'
           get 'find_all', to: 'customers/search#index'
@@ -42,7 +42,13 @@ Rails.application.routes.draw do
         end
       end
       
-			resources :invoices, only: [:index, :show]
+			resources :invoices, only: [:index, :show] do
+        collection do
+          get 'find',     to: 'customers/search#show'
+          get 'find_all', to: 'customers/search#index'
+          get 'random', to: 'customers/random#show' 
+        end 
+			end
       
 			resources :items, only: [:index, :show] do
         resources :invoice_items, only: [:index]
