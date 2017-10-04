@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           get 'revenue', to: 'merchants/revenue_by_date#index'
         end
       end
+      
       resources :transactions, only: [:index, :show] do
         collection do
           get 'find',     to: 'transactions/search#show'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
           get 'random', to: 'transactions/random#show'
         end
       end
+      
       resources :customers, only: [:index, :show] do
         collection do
           get 'find',     to: 'customers/search#show'
@@ -27,15 +29,29 @@ Rails.application.routes.draw do
           get 'random', to: 'customers/random#show' 
         end   
       end
+      
 			resources :invoices, only: [:index, :show]
-			resources :items, only: [:index, :show]
-			
+      
+			resources :items, only: [:index, :show] do
+        collection do
+          get 'find',     to: 'items/search#show'
+          get 'find_all', to: 'items/search#index'
+          get 'random', to: 'items/random#show' 
+        end
+			end
+      
+      namespace :items do
+				resources :search, only: [:show, :index]
+			end
+      
 			namespace :merchants do
 				resources :search, only: [:show, :index]
 			end
+      
 			namespace :customers do
 				resources :search, only: [:show, :index]
 			end
+      
       namespace :transactions do
 				resources :search, only: [:show, :index]
 			end

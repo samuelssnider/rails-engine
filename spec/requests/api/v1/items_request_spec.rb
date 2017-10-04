@@ -2,38 +2,43 @@ require 'rails_helper'
 
 describe 'Items API' do
 	it "sends a list of items" do
-		create_list(:item, 10)
+		m = create(:merchant)
+		create(:item, merchant: m)
+		create(:item, merchant: m)
 		
 		get '/api/v1/items'
 		
 		items = JSON.parse(response.body)
 		
-		expect(response).to be_success
+		expect(response.body).to include("MyString")
 		expect(items).not_to be_empty
-		expect(items.count).to eq(10)
+		expect(items.count).to eq(2)
 		expect(response).to have_http_status(200)
 	end
 	
-	xit "sends a single merchant" do
-		create_list(:merchant, 1)
+	it "sends a single item" do
+		m = create(:merchant)
+		i = create(:item, merchant: m)
 		
-		get "/api/v1/merchants/#{Merchant.first.id}"
+		get "/api/v1/items/#{Item.first.id}"
 		
-		merchants = JSON.parse(response.body)
+		items = JSON.parse(response.body)
 		
-		expect(merchants).not_to be_empty
+		expect(items).to have_value("MyString")
 		expect(Merchant.count).to eq(1)
 		expect(response).to have_http_status(200)
 	end
 	
-	it "sends a random merchant"  do
-		create_list(:merchant, 20)
+	it "sends a random item"  do
+		m = create(:merchant)
+		i = create(:item, merchant: m)
+		i2 = create(:item, merchant: m)
 		
-		get "/api/v1/merchants/random"
+		get "/api/v1/items/random"
 		
-		merchants = JSON.parse(response.body)
+		items = JSON.parse(response.body)
 		
-		expect(merchants).not_to be_empty
+		expect(items).not_to be_empty
 		expect(response).to have_http_status(200)
 	end
 end
