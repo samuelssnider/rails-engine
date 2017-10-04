@@ -3,7 +3,6 @@ module Api
 		module Merchants
 			class MostRevenueController < ApplicationController
 				def index
-					binding.pry
 					
 				end
 			end
