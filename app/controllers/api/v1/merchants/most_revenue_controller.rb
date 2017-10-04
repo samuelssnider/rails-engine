@@ -3,7 +3,7 @@ module Api
 		module Merchants
 			class MostRevenueController < ApplicationController
 				def index
-					
+					render json: Merchant.most_revenue(params["quantity"])
 				end
 			end
 		end
