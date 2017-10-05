@@ -32,6 +32,13 @@ class Merchant < ApplicationRecord
 			.map(&:total_revenue)
 			.sum
 		else
+			date = Date.parse(date)
+			Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+			.joins(:invoice_items, :transactions)
+			.merge(Transaction.unscoped.successful).group(:id)
+			.where('merchant_id = ? and result = ? and created_at = ?', self.id, "0", date.midnight..date.end_of_day )
+			.map(&:total_revenue)
+			.sum
 		end
 	end
 	

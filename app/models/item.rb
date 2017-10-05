@@ -24,11 +24,12 @@ class Item < ApplicationRecord
     .limit(total)
   end
   
-  def self.best_day
-    invoices
-    .joins(:transactions, :invoice_items)
-    .merge(Transaction.unscoped.successful)
-    .group(:created_at)
-  end
+  # def self.best_day
+  #   invoices
+  #   .joins(:transactions, :invoice_items)
+  #   .merge(Transaction.unscoped.successful)
+  #   .group(:created_at)
+  # end
+  # Item.first.invoices.select('invoices.id, invoices.created_at, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').joins(:transactions, :invoice_items).merge(Transaction.unscoped.successful).group(:id)
 
 end

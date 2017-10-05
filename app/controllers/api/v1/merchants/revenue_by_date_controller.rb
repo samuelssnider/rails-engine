@@ -4,7 +4,7 @@ module Api
 			class RevenueByDateController < ApplicationController
 				def index
 					merchant = Merchant.find(params[:merchant_id])
-					render json: {revenue: (merchant.total_revenue.to_f/100.0).to_s}
+					render json: {revenue: (merchant.total_revenue(params["date"]).to_f/100.0).to_s}
 				end
 			end
 		end
