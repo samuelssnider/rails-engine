@@ -21,5 +21,9 @@ class Item < ApplicationRecord
     .order('total_items_sold DESC')
     .limit(total)
   end
+  
+  def self.best_day
+    invoices
+  end
 
 end
