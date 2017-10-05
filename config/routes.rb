@@ -5,13 +5,13 @@ Rails.application.routes.draw do
         resources :invoices, only: [:index]
         resources :items, only: [:index]
         get 'favorite_customer', to: 'merchants/favorite_customer#index'
+        get 'revenue', to: 'merchants/revenue_by_date#index'
         collection do
           get 'find',     to: 'merchants/search#show'
           get 'find_all', to: 'merchants/search#index'
           get 'random', to: 'merchants/random#show'
           get 'most_items', to: 'merchants/most_items#index'
           get 'most_revenue', to: 'merchants/most_revenue#index'
-          get 'revenue', to: 'merchants/revenue_by_date#index'
         end
       end
       

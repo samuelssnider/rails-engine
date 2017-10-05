@@ -3,10 +3,16 @@ module Api
 		module Items
 			class SearchController < ApplicationController
 				def show
+					if params["unit_price"]
+						params["unit_price"] = (params["unit_price"].to_f * 100).to_i
+					end
 					render json: Item.find_by(search_params)
 				end
 				
 				def index 
+					if params["unit_price"]
+						params["unit_price"] = (params["unit_price"].to_f * 100).to_i
+					end
 					render json: Item.where(search_params)
 				end
 				
