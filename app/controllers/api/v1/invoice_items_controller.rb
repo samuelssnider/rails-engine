@@ -3,7 +3,12 @@ module Api
 		class InvoiceItemsController < ApplicationController
 			
 			def index
-				render json: InvoiceItem.all
+				if params[:invoice_id]
+					invoice = Invoice.find(params[:invoice_id])
+					render json: invoice.invoice_items
+				else
+					render json: InvoiceItem.all
+				end
 			end
 			
 			def show
