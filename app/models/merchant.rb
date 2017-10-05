@@ -61,24 +61,7 @@ class Merchant < ApplicationRecord
 		end
 	end
 			
-		# unless date
-		# 	Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
-		# 	.joins(:invoice_items, :transactions)
-		# 	.merge(Transaction.unscoped.successful)
-		#   .group(:id)
-		# 	.where('merchant_id = ? and result = ?', self.id, "0")
-		# 	.map(&:total_revenue)
-		# 	.sum
-		# else
-		# 	date = date.to_datetime
-		# 	Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
-		# 	.joins(:invoice_items, :transactions)
-		# 	.merge(Transaction.unscoped.successful).group(:id)
-		# 	.where('merchant_id = ? and result = ? and Invoices.created_at = ?', self.id, "0", date.midnight..date.end_of_day )
-		# 	.map(&:total_revenue)
-		# 	.sum
 		
-		# end
 	
 	def favorite_customer
     Customer.select("customers.*, count(transactions)")
