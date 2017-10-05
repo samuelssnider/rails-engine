@@ -14,6 +14,9 @@ module Api
 				elsif params[:merchant_id]
 					merchant = Merchant.find(params[:merchant_id])
 					render json: merchant.invoices.all
+				elsif params[:customer_id]
+					customer = Customer.find(params[:customer_id])
+					render json: customer.invoices
 				else
 					render json: Invoice.all
 				end

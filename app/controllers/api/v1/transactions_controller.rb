@@ -5,6 +5,9 @@ module Api
 				if params[:invoice_id]
 					invoice = Invoice.find(params[:invoice_id])
 					render json: invoice.transactions
+				elsif params[:customer_id]
+					customer = Customer.find(params[:customer_id])
+					render json: customer.transactions
 				else 
 					render json: Transaction.all
 				end
