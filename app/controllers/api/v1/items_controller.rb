@@ -14,10 +14,10 @@ module Api
 				else
 					render json: Item.all
 				end
+			end
 				
-				def show
-					render json: Item.find(params[:id])
-				end
+			def show
+				render json: Item.find(params[:id])
 			end
 		end
 	end

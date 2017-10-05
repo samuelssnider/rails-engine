@@ -52,9 +52,9 @@ Rails.application.routes.draw do
         get 'customer', to: 'invoices/customers#index'
         get 'merchant', to: 'invoices/merchants#index'
         collection do
-          get 'find',     to: 'customers/search#show'
-          get 'find_all', to: 'customers/search#index'
-          get 'random', to: 'customers/random#show' 
+          get 'find',     to: 'invoices/search#show'
+          get 'find_all', to: 'invoices/search#index'
+          get 'random', to: 'invoices/random#show' 
         end 
 			end
       
