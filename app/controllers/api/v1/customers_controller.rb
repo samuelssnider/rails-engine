@@ -5,7 +5,7 @@ module Api
 			def index
 				if params[:invoice_id]
 					invoice = Invoice.find(params[:invoice_id])
-					customer = invoice.customer
+					render json: invoice.customer
 				else
 					render json: Customer.all
 				end

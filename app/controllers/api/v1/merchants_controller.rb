@@ -3,7 +3,12 @@ module Api
 		class MerchantsController < ApplicationController
 			
 			def index
-				render json: Merchant.all
+				if params[:invoice_id]
+					invoice = Invoice.find(params[:invoice_id])
+					render json: invoice.merchant
+				else
+					render json: Merchant.all
+				end
 			end
 			
 			def show
