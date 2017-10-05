@@ -3,7 +3,11 @@ module Api
 		module Items
 			class MostRevenueController < ApplicationController
 				def index
-					render json: Item.most_revenue(params["quantity"])
+					if params[:quantity]
+						render json: Item.unscoped.most_revenue(params["quantity"])
+					else
+						render json: Item.unscoped.most_revenue
+					end
 				end
 			end
 		end
