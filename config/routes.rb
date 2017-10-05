@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
       
       resources :transactions, only: [:index, :show] do
+        get 'invoice', to: 'transactions/invoices#index'
         collection do
           get 'find',     to: 'transactions/search#show'
           get 'find_all', to: 'transactions/search#index'
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
       
 			resources :items, only: [:index, :show] do
         resources :invoice_items, only: [:index]
+        get 'merchant', to: 'items/merchants#index'
         collection do
           get 'most_revenue', to: 'items/most_revenue#index'
           get 'most_items', to: 'items/most_items#index'
