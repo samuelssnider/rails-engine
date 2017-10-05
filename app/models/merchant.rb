@@ -25,21 +25,43 @@ class Merchant < ApplicationRecord
 	
 	def total_revenue(date = nil)
 		unless date
-			Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+			invoices.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
 			.joins(:invoice_items, :transactions)
-			.merge(Transaction.unscoped.successful).group(:id)
-			.where('merchant_id = ? and result = ?', self.id, "0")
+			.merge(Transaction.unscoped.successful)
+			.group(:id)
 			.map(&:total_revenue)
 			.sum
 		else
-			date = Date.parse(date)
-			Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+			invoices.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
 			.joins(:invoice_items, :transactions)
-			.merge(Transaction.unscoped.successful).group(:id)
-			.where('merchant_id = ? and result = ? and created_at = ?', self.id, "0", date.midnight..date.end_of_day )
+			.merge(Transaction.unscoped.successful)
+			.where(created_at: date.to_datetime)
+			.group(:id)
 			.map(&:total_revenue)
 			.sum
 		end
+		
+		# def total_revenue_for_date(date)
+		# end
+			
+		# unless date
+		# 	Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+		# 	.joins(:invoice_items, :transactions)
+		# 	.merge(Transaction.unscoped.successful)
+		#   .group(:id)
+		# 	.where('merchant_id = ? and result = ?', self.id, "0")
+		# 	.map(&:total_revenue)
+		# 	.sum
+		# else
+		# 	date = date.to_datetime
+		# 	Invoice.select("invoices.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
+		# 	.joins(:invoice_items, :transactions)
+		# 	.merge(Transaction.unscoped.successful).group(:id)
+		# 	.where('merchant_id = ? and result = ? and Invoices.created_at = ?', self.id, "0", date.midnight..date.end_of_day )
+		# 	.map(&:total_revenue)
+		# 	.sum
+		
+		# end
 	end
 	
 	def favorite_customer
