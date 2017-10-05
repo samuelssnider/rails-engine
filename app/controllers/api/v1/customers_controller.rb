@@ -3,15 +3,16 @@ module Api
 		class CustomersController < ApplicationController
 			
 			def index
-				render json: Customer.all
+				if params[:invoice_id]
+					invoice = Invoice.find(params[:invoice_id])
+					customer = invoice.customer
+				else
+					render json: Customer.all
+				end
 			end
 			
 			def show
-				unless params[:id] == "find"
-					render json: Customer.find(params[:id])
-				else
-					redirect_to api_v1_customers_search_path(name: params["name"])
-				end
+				render json: Customer.find(params[:id])
 			end
 		
 		end

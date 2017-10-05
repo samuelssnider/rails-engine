@@ -8,6 +8,9 @@ module Api
 				elsif params[:invoice_item_id]
 					invoice_item = InvoiceItem.find(params[:invoice_item_id])
 					render json: invoice_item.item
+				elsif params[:invoice_id]
+					invoice = Invoice.find(params[:invoice_id])
+					render json: invoice.items
 				else
 					render json: Item.all
 				end

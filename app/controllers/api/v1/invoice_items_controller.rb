@@ -1,7 +1,7 @@
 module Api
 	module V1
 		class InvoiceItemsController < ApplicationController
-			
+
 			def index
 				if params[:invoice_id]
 					invoice = Invoice.find(params[:invoice_id])
