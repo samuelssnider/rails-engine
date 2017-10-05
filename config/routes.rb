@@ -12,6 +12,7 @@ Rails.application.routes.draw do
           get 'random', to: 'merchants/random#show'
           get 'most_items', to: 'merchants/most_items#index'
           get 'most_revenue', to: 'merchants/most_revenue#index'
+          get 'revenue', to: 'merchants/revenue_total#index'
         end
       end
       
