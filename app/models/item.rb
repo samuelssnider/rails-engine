@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
   
+  default_scope { order(:id)}
+  
   def self.most_revenue(total = 5)
     select("items.*, sum(invoice_items.quantity*invoice_items.unit_price) as total_revenue")
     .joins(invoices: [:transactions, :invoice_items])
@@ -24,6 +26,9 @@ class Item < ApplicationRecord
   
   def self.best_day
     invoices
+    .joins(:transactions, :invoice_items)
+    .merge(Transaction.unscoped.successful)
+    .group(:created_at)
   end
 
 end
