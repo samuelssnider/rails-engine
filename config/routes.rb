@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   		resources :merchants, only: [:index, :show] do
         resources :invoices, only: [:index]
         resources :items, only: [:index]
+        get 'favorite_customer', to: 'merchants/favorite_customer#index'
         collection do
           get 'find',     to: 'merchants/search#show'
           get 'find_all', to: 'merchants/search#index'

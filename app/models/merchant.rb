@@ -23,7 +23,14 @@ class Merchant < ApplicationRecord
 		.limit(total)
 	end
 
-	
+	def favorite_customer
+    Customer.select("customers.*, count(transactions)")
+            .joins(invoices: :transactions)
+            .where("merchant_id = ? AND result = ?", id, "0")
+            .group("id")
+            .order("count DESC")
+            .first
+  end
 	# def favorite_customer
 	# 	Customer.select("customer.*, count(transactions)")
 	# 	.joins(:invoices)
