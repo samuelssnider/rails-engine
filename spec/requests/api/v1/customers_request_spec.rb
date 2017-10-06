@@ -47,7 +47,7 @@ describe 'Customers API' do
 		expect(response.body).to include(customer.first_name)
 	end
 	
-	it "can find a specific customer" do
+	it "can find a lot of customers" do
 		create_list(:customer, 5)
 		customer = Customer.last
 		
@@ -69,4 +69,28 @@ describe 'Customers API' do
 		expect(response).to have_http_status(200)
 	end
 		
+	it "can find a customer's transactions" do
+		create_stuff
+		c = Customer.last
+		
+		get "/api/v1/customers/#{c.id}/transactions"
+		customers = JSON.parse(response.body)
+		
+		expect(customers.count).to eq(1)
+		expect(customers.first.count).to eq(4)
+		expect(response).to have_http_status(200)
+	end
+	
+	it "can find a customer's invoices" do
+		create_stuff
+		c = Customer.last
+		
+		get "/api/v1/customers/#{c.id}/invoices"
+		customers = JSON.parse(response.body)
+		
+		expect(customers.count).to eq(1)
+		expect(customers.first.count).to eq(4)
+		expect(response).to have_http_status(200)
+		
+	end
 end
