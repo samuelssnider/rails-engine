@@ -30,6 +30,8 @@ class Item < ApplicationRecord
     .merge(Transaction.unscoped.successful)
     .group(:id)
     .group(:created_at)
+    .order('total_revenue DESC')
+    .first
   end
   # Item.first.invoices.select('invoices.id, invoices.created_at, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').joins(:transactions, :invoice_items).merge(Transaction.unscoped.successful).group(:id)
 

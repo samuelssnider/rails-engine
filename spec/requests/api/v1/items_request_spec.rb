@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Items API' do
+	include Helper
 	it "sends a list of items" do
 		m = create(:merchant)
 		create(:item, merchant: m)
@@ -39,6 +40,31 @@ describe 'Items API' do
 		items = JSON.parse(response.body)
 		
 		expect(items).not_to be_empty
+		expect(response).to have_http_status(200)
+	end
+	
+	it 'can find an item' do
+		create_stuff
+		i = Item.last
+		
+		get "/api/v1/items/find?id=#{i.id}"
+		
+		items = JSON.parse(response.body)
+		
+		expect(items).to have_value("MyString")
+		expect(response).to have_http_status(200)
+	end
+	
+	it 'can find multiple items' do
+		create_stuff
+		i = Item.last
+		
+		get "/api/v1/items/find_all?#{i.name}"
+		
+		items = JSON.parse(response.body)
+		
+		expect(items.count).to eq(2)
+		expect(items.first).to have_value("MyString")
 		expect(response).to have_http_status(200)
 	end
 end

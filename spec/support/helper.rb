@@ -8,6 +8,7 @@ module Helper
 	i_2 = create(:invoice, merchant: m, customer: c)
 	i_3 = create(:invoice, merchant: m, customer: c_2)
 	it = create(:item, merchant: m)
+	it_2 = create(:item, merchant: m_2)
 	ii = create(:invoice_item, invoice: i, item: it)
 	ii2 = create(:invoice_item, invoice: i_2, item: it)
 	ii3 = create(:invoice_item, invoice: i_3, item: it)
