@@ -69,4 +69,62 @@ describe 'Invoices API' do
 		expect(invoice.first).to have_value(i.merchant_id)
 		expect(invoice.count).to eq(2)
 	end
+	
+	it "can find invoices's customer" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/#{i.id}/customer"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.count).to eq(3)
+	end
+	
+	it "can find invoices's merchant" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/#{i.id}/merchant"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.count).to eq(2)
+	end
+	
+	it "can find invoices's transactions" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/#{i.id}/transactions"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.count).to eq(1)
+		expect(invoice.first.count).to eq(4)
+	end
+	
+	it "can find invoices's invoice_items" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/#{i.id}/invoice_items"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.count).to eq(1)
+		expect(invoice.first.count).to eq(5)
+	end
+	
+	it "can find invoices's items" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/#{i.id}/items"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.count).to eq(1)
+		expect(invoice.first.count).to eq(5)
+	end
 end

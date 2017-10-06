@@ -67,4 +67,42 @@ describe 'Items API' do
 		expect(items.first).to have_value("MyString")
 		expect(response).to have_http_status(200)
 	end
+	
+	it 'can find an item"s merchant' do
+		create_stuff
+		i = Item.last
+		
+		get "/api/v1/items/#{i.id}/merchant"
+		
+		items = JSON.parse(response.body)
+		
+		expect(items.count).to eq(2)
+		expect(response).to have_http_status(200)
+	end
+	
+	it 'can find items that have produced the most revenue' do
+		create_stuff
+		i = Item.last
+		
+		get "/api/v1/items/most_revenue"
+		
+		items = JSON.parse(response.body)
+		
+		expect(items.count).to eq(1)
+		expect(items.first.count).to eq(5)
+		expect(response).to have_http_status(200)
+	end
+	
+	it 'can find items that are most sold' do
+		create_stuff
+		i = Item.last
+		
+		get "/api/v1/items/most_items"
+		
+		items = JSON.parse(response.body)
+		
+		expect(items.count).to eq(1)
+		expect(items.first.count).to eq(5)
+		expect(response).to have_http_status(200)
+	end
 end
