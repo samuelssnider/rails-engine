@@ -1,21 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
+* To use this api, clone it down using the console:
+git clone
 
-* System dependencies
+* Ruby version - 2.4.1p111
 
-* Configuration
-
-* Database creation
-
-* Database initialization
+* To create the database, run:
+rake db:create
+rake db:migrate
+rake populate
 
 * How to run the test suite
+
+rspec
 
 * Services (job queues, cache servers, search engines, etc.)
 
