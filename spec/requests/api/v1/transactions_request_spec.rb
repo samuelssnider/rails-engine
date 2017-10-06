@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Transactions API' do
+	include Helper
 	it "sends a list of Transactions" do
 		m = create(:merchant)
 		c = create(:customer)
@@ -44,5 +45,37 @@ describe 'Transactions API' do
 		
 		expect(transactions).not_to be_empty
 		expect(response).to have_http_status(200)
+	end
+	
+	it "can find a transaction" do
+		create_stuff
+		t = Transaction.last
+		
+		get "/api/v1/transactions/find?id=#{t.id}"
+		transactions = JSON.parse(response.body)
+		
+		expect(transactions["id"]).to eq(t.id)
+		expect(transactions["invoice_id"]).to eq(t.invoice_id)
+	end
+	
+	
+	it "can find multiple transactions" do
+		create_stuff
+		t = Transaction.last
+		
+		get "/api/v1/transactions/find?status=0"
+		transactions = JSON.parse(response.body)
+		
+		expect(transactions.count).to eq(4)
+	end
+	
+	it "can find a transaction's invoice" do
+		create_stuff
+		t = Transaction.last
+		
+		get "/api/v1/transactions/#{t.id}/invoice"
+		transactions = JSON.parse(response.body)
+		
+		expect(transactions["merchant_id"]).to eq(47)
 	end
 end

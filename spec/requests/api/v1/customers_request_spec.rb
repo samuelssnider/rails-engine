@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Customers API' do
+	include Helper
 	it "sends a list of customers" do
 		create_list(:customer, 10)
 		
@@ -56,4 +57,16 @@ describe 'Customers API' do
 		customers = JSON.parse(response.body)
 		expect(customers.count).to eq(5)
 	end
+	
+	it "can find a customer's favorite merchant" do
+		create_stuff
+		c = Customer.last
+		
+		get "/api/v1/customers/#{c.id}/favorite_merchant"
+		customers = JSON.parse(response.body)
+		
+		expect(customers.count).to eq(2)
+		expect(response).to have_http_status(200)
+	end
+		
 end
