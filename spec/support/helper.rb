@@ -1,6 +1,7 @@
 module Helper
 	def create_stuff
 	m = create(:merchant)
+	m_2 = create(:merchant)
 	c = create(:customer, first_name: "sally")
 	c_2 = create(:customer)
 	i = create(:invoice, merchant: m, customer: c)

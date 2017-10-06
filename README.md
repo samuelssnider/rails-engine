@@ -6,6 +6,10 @@ Start Up (From the console on a UNIX machine)
 
 ** http://backend.turing.io/prework/environment_setup_prework
 
+* Ruby version - 2.4.1p111
+
+* This project creates an API for software to software transfer of data using JSON.
+
 * To use this api, clone it down using the console:
 ```
 git clone https://github.com/samuelssnider/rails-engine.git
@@ -19,7 +23,7 @@ bundle install
 bundle update
 ```
 
-* Ruby version - 2.4.1p111
+
 
 * To create the database, run:
 ```

@@ -76,6 +76,6 @@ describe 'Transactions API' do
 		get "/api/v1/transactions/#{t.id}/invoice"
 		transactions = JSON.parse(response.body)
 		
-		expect(transactions["merchant_id"]).to eq(47)
+		expect(transactions["merchant_id"]).to eq(t.invoice.merchant_id)
 	end
 end
