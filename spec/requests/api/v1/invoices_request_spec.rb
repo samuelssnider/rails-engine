@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Invoices API' do
+	include Helper
 	it "sends a list of Invoices" do
 		m = create(:merchant)
 		c = create(:customer)
@@ -42,5 +43,30 @@ describe 'Invoices API' do
 		
 		expect(invoice).not_to be_empty
 		expect(response).to have_http_status(200)
+	end
+	
+	it "can find an invoice" do
+		create_stuff
+		i = Invoice.last
+		
+		get "/api/v1/invoices/find?id=#{i.id}"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice).to have_value(i.merchant_id)
+		expect(invoice.count).to eq(4)
+	end
+	
+	it "can find multiple invoices" do
+		create_stuff
+		i = Invoice.last
+		c = Customer.first
+		
+		get "/api/v1/invoices/find_all?customer_id=#{c.id}"
+		
+		invoice = JSON.parse(response.body)
+		
+		expect(invoice.first).to have_value(i.merchant_id)
+		expect(invoice.count).to eq(2)
 	end
 end
