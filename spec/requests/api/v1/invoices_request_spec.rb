@@ -26,7 +26,7 @@ describe 'Invoices API' do
 		
 		invoices = JSON.parse(response.body)
 		
-		expect(invoices).to include("shipped")
+		expect(invoices).to be_instance_of(Hash)
 		expect(response).to have_http_status(200)
 	end
 	

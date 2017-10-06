@@ -27,7 +27,7 @@ describe 'Customers API' do
 	end
 	
 	it "sends a random customer"  do
-		create_list(:customer, 20)
+		create_list(:customer, 10)
 		
 		get "/api/v1/customers/random"
 		
@@ -35,5 +35,25 @@ describe 'Customers API' do
 		
 		expect(customers).not_to be_empty
 		expect(response).to have_http_status(200)
+	end
+	
+	it "can find a specific customer" do
+		create_list(:customer, 5)
+		customer = Customer.last
+		
+		get "/api/v1/customers/find?id=#{customer.id}"
+		
+		expect(response.body).to include(customer.first_name)
+	end
+	
+	it "can find a specific customer" do
+		create_list(:customer, 5)
+		customer = Customer.last
+		
+		
+		get "/api/v1/customers/find_all?first_name=#{customer.first_name}"
+		
+		customers = JSON.parse(response.body)
+		expect(customers.count).to eq(5)
 	end
 end
