@@ -37,8 +37,11 @@ rake populate
 ```
 $ rspec
 ```
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* How to clone the spec harness:
+```
+git clone https://github.com/turingschool/rales_engine_spec_harness
+```
+* How to run the spec harness:
+```
+rake
+```
