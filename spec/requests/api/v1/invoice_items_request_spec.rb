@@ -60,6 +60,7 @@ describe 'Invoice Items API' do
 		expect(invoice_item).to have_value(1)
 		expect(response).to have_http_status(200)
 	end
+	
 	it 'finds multiple invoice items' do
 		create_stuff
 		ii = InvoiceItem.last
@@ -70,6 +71,30 @@ describe 'Invoice Items API' do
 		
 		expect(invoice_item.first).to have_value(1)
 		expect(invoice_item.count).to eq(3)
+		expect(response).to have_http_status(200)
+	end
+	
+	it "finds the invoice items's item" do
+		create_stuff
+		ii = InvoiceItem.last
+		
+		get "/api/v1/invoice_items/#{ii.id}/item"
+		
+		invoice_item = JSON.parse(response.body)
+		
+		expect(invoice_item.count).to eq(5)
+		expect(response).to have_http_status(200)
+	end
+	
+	it "finds the invoice items's invoice" do
+		create_stuff
+		ii = InvoiceItem.last
+		
+		get "/api/v1/invoice_items/#{ii.id}/invoice"
+		
+		invoice_item = JSON.parse(response.body)
+		
+		expect(invoice_item.count).to eq(4)
 		expect(response).to have_http_status(200)
 	end
 end
